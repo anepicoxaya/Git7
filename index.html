@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Git7</title>
+<style>
+/* ===== Body & Window ===== */
+body {
+    margin: 0;
+    background: #7a9fd4; /* XP desktop-style background */
+    font-family: Tahoma, Verdana, sans-serif;
+}
+
+.window {
+    width: 1024px;
+    margin: 30px auto;
+    border: 2px solid #000080; /* dark blue XP window border */
+    background: #c0c0c0; /* classic XP gray */
+    box-shadow: 0 0 12px rgba(0,0,0,0.5);
+}
+
+/* ===== Title Bar ===== */
+.titlebar {
+    height: 28px;
+    background: linear-gradient(#000080, #0000a0);
+    color: white;
+    padding: 0 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: bold;
+    user-select: none;
+}
+
+.titlebar .title {
+    flex: 1;
+}
+
+.titlebar .buttons {
+    display: flex;
+    gap: 2px;
+}
+
+.titlebar .btn {
+    width: 18px;
+    height: 18px;
+    background: linear-gradient(#ffffff, #c0c0c0);
+    border: 1px solid #808080;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* ===== Tabs ===== */
+.tabs {
+    display: flex;
+    border-bottom: 1px solid #808080;
+    background: #c0c0c0;
+}
+
+.tab {
+    padding: 3px 10px;
+    margin-right: 1px;
+    border: 1px solid #808080;
+    border-bottom: none;
+    background: linear-gradient(#e0e0e0, #c0c0c0);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.tab.active {
+    background: white;
+    font-weight: bold;
+}
+
+/* ===== Toolbar ===== */
+.toolbar {
+    display: flex;
+    gap: 4px;
+    padding: 4px 6px;
+    background: #d4d0c8;
+    border-bottom: 1px solid #808080;
+}
+
+.toolbar button {
+    padding: 3px 8px;
+    font-size: 11px;
+    border: 1px solid #808080;
+    background: linear-gradient(#ffffff, #c0c0c0);
+    cursor: pointer;
+}
+
+/* ===== Address bar ===== */
+.addressbar {
+    display: flex;
+    padding: 4px 6px;
+    background: #e4e0d8;
+    border-bottom: 1px solid #808080;
+    gap: 4px;
+}
+
+.addressbar input {
+    flex: 1;
+    font-size: 12px;
+    padding: 2px 4px;
+    border: 2px inset #ffffff;
+}
+
+/* ===== Content ===== */
+.content {
+    height: 600px;
+    background: white;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+</style>
+</head>
+<body>
+
+<div class="window">
+
+    <!-- Title Bar -->
+    <div class="titlebar">
+        <div class="title">Git7 — ie.git7.com</div>
+        <div class="buttons">
+            <div class="btn">_</div>
+            <div class="btn">□</div>
+            <div class="btn">X</div>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <div class="tab active">Git7 Home</div>
+        <div class="tab">New Tab</div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+        <button onclick="goBack()">◀ Back</button>
+        <button onclick="goForward()">▶ Forward</button>
+        <button onclick="stopPage()">■ Stop</button>
+        <button onclick="refreshPage()">↻ Refresh</button>
+        <button onclick="goHome()">🏠 Home</button>
+    </div>
+
+    <!-- Address Bar -->
+    <div class="addressbar">
+        <input id="address" value="https://wiby.me">
+        <button onclick="go()">Go</button>
+        <button onclick="openExternal()">Show in website</button>
+    </div>
+
+    <!-- Content / iframe -->
+    <div class="content">
+        <iframe id="browser" src="https://wiby.me"></iframe>
+    </div>
+
+</div>
+
+<script>
+let currentURL = "https://wiby.me";
+let historyStack = [];
+let historyIndex = -1;
+
+function go() {
+    let url = document.getElementById("address").value.trim();
+    if (!url.startsWith("http")) {
+        url = "https://wiby.me/?q=" + encodeURIComponent(url);
+    }
+    loadURL(url);
+}
+
+function loadURL(url) {
+    currentURL = url;
+    document.getElementById("browser").src = url;
+
+    // Add to history
+    historyStack = historyStack.slice(0, historyIndex + 1);
+    historyStack.push(url);
+    historyIndex++;
+}
+
+function goBack() {
+    if (historyIndex > 0) {
+        historyIndex--;
+        currentURL = historyStack[historyIndex];
+        document.getElementById("browser").src = currentURL;
+        document.getElementById("address").value = currentURL;
+    }
+}
+
+function goForward() {
+    if (historyIndex < historyStack.length - 1) {
+        historyIndex++;
+        currentURL = historyStack[historyIndex];
+        document.getElementById("browser").src = currentURL;
+        document.getElementById("address").value = currentURL;
+    }
+}
+
+function refreshPage() {
+    document.getElementById("browser").src = currentURL;
+}
+
+function stopPage() {
+    let iframe = document.getElementById("browser");
+    iframe.src = "about:blank";
+}
+
+function goHome() {
+    loadURL("https://wiby.me");
+    document.getElementById("address").value = "https://wiby.me";
+}
+
+function openExternal() {
+    window.open(currentURL, "_blank");
+}
+</script>
+
+</body>
+</html>
