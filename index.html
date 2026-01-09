@@ -2,39 +2,38 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Git7</title>
+<title>Git7 — ie.git7.com</title>
 <style>
 /* ===== Body & Window ===== */
 body {
     margin: 0;
-    background: #7a9fd4; /* XP desktop-style background */
+    background: #3a6ea5; /* classic XP desktop blue */
     font-family: Tahoma, Verdana, sans-serif;
 }
 
 .window {
     width: 1024px;
     margin: 30px auto;
-    border: 2px solid #000080; /* dark blue XP window border */
-    background: #c0c0c0; /* classic XP gray */
+    border: 2px solid #000080;
+    background: #c0c0c0;
     box-shadow: 0 0 12px rgba(0,0,0,0.5);
 }
 
 /* ===== Title Bar ===== */
 .titlebar {
-    height: 28px;
+    height: 26px;
     background: linear-gradient(#000080, #0000a0);
     color: white;
-    padding: 0 6px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    font-size: 12px;
-    font-weight: bold;
+    align-items: center;
+    font-size: 9pt;
     user-select: none;
+    padding: 0 4px;
 }
 
 .titlebar .title {
-    flex: 1;
+    line-height: 26px;
 }
 
 .titlebar .buttons {
@@ -43,15 +42,15 @@ body {
 }
 
 .titlebar .btn {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     background: linear-gradient(#ffffff, #c0c0c0);
     border: 1px solid #808080;
-    font-weight: bold;
-    font-size: 12px;
-    line-height: 14px;
     text-align: center;
+    font-size: 10px;
+    line-height: 14px;
     cursor: pointer;
+    box-shadow: inset 1px 1px #fff, inset -1px -1px #808080;
 }
 
 /* ===== Tabs ===== */
@@ -59,54 +58,67 @@ body {
     display: flex;
     border-bottom: 1px solid #808080;
     background: #c0c0c0;
+    padding-left: 2px;
 }
 
 .tab {
     padding: 3px 10px;
-    margin-right: 1px;
+    margin-right: 2px;
     border: 1px solid #808080;
     border-bottom: none;
     background: linear-gradient(#e0e0e0, #c0c0c0);
-    font-size: 12px;
+    font-size: 9pt;
     cursor: pointer;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .tab.active {
     background: white;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 /* ===== Toolbar ===== */
 .toolbar {
     display: flex;
-    gap: 4px;
-    padding: 4px 6px;
+    gap: 2px;
+    padding: 4px 4px;
     background: #d4d0c8;
     border-bottom: 1px solid #808080;
 }
 
 .toolbar button {
-    padding: 3px 8px;
-    font-size: 11px;
+    padding: 2px 6px;
+    font-size: 9pt;
     border: 1px solid #808080;
     background: linear-gradient(#ffffff, #c0c0c0);
     cursor: pointer;
+    box-shadow: inset 1px 1px #fff, inset -1px -1px #808080;
 }
 
 /* ===== Address bar ===== */
 .addressbar {
     display: flex;
-    padding: 4px 6px;
+    padding: 2px 4px;
     background: #e4e0d8;
     border-bottom: 1px solid #808080;
-    gap: 4px;
+    gap: 2px;
 }
 
 .addressbar input {
     flex: 1;
-    font-size: 12px;
-    padding: 2px 4px;
+    font-size: 9pt;
+    padding: 1px 4px;
     border: 2px inset #ffffff;
+}
+
+.addressbar button {
+    padding: 1px 6px;
+    font-size: 9pt;
+    border: 1px solid #808080;
+    background: linear-gradient(#ffffff, #c0c0c0);
+    cursor: pointer;
+    box-shadow: inset 1px 1px #fff, inset -1px -1px #808080;
 }
 
 /* ===== Content ===== */
@@ -182,7 +194,6 @@ function loadURL(url) {
     currentURL = url;
     document.getElementById("browser").src = url;
 
-    // Add to history
     historyStack = historyStack.slice(0, historyIndex + 1);
     historyStack.push(url);
     historyIndex++;
